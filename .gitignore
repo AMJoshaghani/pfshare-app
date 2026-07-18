@@ -1,0 +1,7 @@
+.venv/
+.briefcase/
+build/
+dist/
+logs/
+src/pfshare/server/
+tests/

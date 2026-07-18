@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Briefcase-Version: 0.4.4
+Name: pfshare
+Formal-Name: PFShare
+App-ID: ir.amjoshaghani.pfshare.pfshare
+Version: 0.1.0
+Home-page: https://amjoshaghani.github.io/pfshare-app
+Download-URL: https://amjoshaghani.github.io/pfshare-app
+Author: Amir M. Joshaghani
+Author-email: amjoshaghani@gmail.com
+Summary: Graphical User Interface for the PFShare project.
