@@ -1,0 +1,38 @@
+# PFShare Release Notes
+
+## 0.0.1 (21 Mar 2023)
+
+* Initial release
+
+## 0.1.0 (18 Jul 2026)
+
+* UI/UX Improvements.
+
+## Unreleased
+
+* Redesigned the GUI: removed the full-page dark navy background, which was fighting the app's
+  own `Theme.MaterialComponents.Light.DarkActionBar` base theme and looked especially rough on
+  Android (patchy against native light chrome, status bar, and button ripples). Replaced the
+  Start/Stop button with a native `Switch` (renders as a proper platform toggle on each OS),
+  reworked spacing and text hierarchy for a light theme, and cut the color palette down to
+  restrained accent/status use instead of a full custom color scheme.
+
+* Added a real Android foreground service (`pfshare/service.py`, a Chaquopy static-proxy
+  subclass of `android.app.Service`) so the app survives being backgrounded. Without it, Android
+  freezes and eventually kills the process a short time after you leave the app — there's no way
+  around that on Android except a foreground service, which is why one now exists. It shows a
+  persistent low-priority "PFShare is running" notification while the server is on (Android
+  requires this — it's how the user knows something is running and draining battery) and is
+  started/stopped alongside the server itself. Note: on Android 13+, if the app doesn't have
+  notification permission granted, the service still keeps running, but the notification itself
+  may not display — there's no in-app prompt for that permission yet, so grant it manually via
+  Settings → Apps → PFShare → Notifications if you don't see it.
+* Replaced the `multiprocessing.Process`-based server with a `threading.Thread` running a
+  `werkzeug` server directly. Android/Chaquopy has no working `multiprocessing` support
+  (no `_multiprocessing` module, no `sem_open`), so the server was likely failing outright
+  on Android whenever "Start Server" was pressed. The thread-based server works identically
+  on desktop and Android, and shuts down cleanly via `werkzeug`'s built-in `shutdown()`
+  instead of a hard process kill.
+* The file manager's share root now defaults to the app's Android external files directory
+  (via Chaquopy's `AndroidPlatform.getApplication()`) instead of `Path.home()`, which doesn't
+  resolve to anything meaningful in the Android sandbox. Desktop platforms are unaffected.

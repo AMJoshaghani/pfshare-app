@@ -175,6 +175,30 @@ build_gradle_dependencies = [
     "com.google.android.material:material:1.13.0",
 ]
 
+build_gradle_extra_content = """
+android {
+    defaultConfig {
+        python {
+            staticProxy "pfshare.service"
+        }
+    }
+}
+"""
+
+android_manifest_extra_content = """
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+"""
+
+android_manifest_application_extra_content = """
+<service
+    android:name="pfshare.PFShareService"
+    android:enabled="true"
+    android:exported="false"
+    android:foregroundServiceType="dataSync" />
+"""
+
 # Web deployments
 [tool.briefcase.app.pfshare.web]
 requires = [
