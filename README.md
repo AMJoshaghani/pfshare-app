@@ -4,7 +4,7 @@ Graphical User Interface for the [PFShare project](https://github.com/AMJoshagha
 Flask server as a background process and gives you a button to start/stop it and an address
 to share.
 
-![android|linux|windows](https://s6.imgcdn.dev/YHjZhD.png)
+![android|linux|windows](https://i.ibb.co/yn86kZZP/image.png)
 
 ## How to Run
 
